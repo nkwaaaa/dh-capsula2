@@ -1,30 +1,39 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import { useState, useEffect } from "react";
 import useCounter from "./hooks/useCounter";
 
 function App() {
   const { contador, incrementar, decrementar } = useCounter();
-  const [character, setCharacter] = useState();
+  const [personaje, setPersonaje] = useState(null);
+
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character/${contador}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setCharacter(json);
-      });
+    const obtenerPersonaje = () => {
+      fetch(`https://rickandmortyapi.com/api/character/${contador}`)
+        .then((response) => response.json())
+        .then((data) => setPersonaje(data))
+        .catch((error) =>
+          console.error("Error al obtener el personaje:", error)
+        );
+    };
+
+    obtenerPersonaje();
   }, [contador]);
 
   return (
-    <>
-      <h1>DH Cápsula 2</h1>
-      <div className="buttonContainer">
-        <button disabled={contador === 1} onClick={() => decrementar()}>
-          decrementar
-        </button>
-        <button onClick={() => incrementar()}>Incrementar</button>
-      </div>
+    <div>
+      <header>
+        <h1>DH Cápsula 2</h1>
+      </header>
+      <main>
+        <div className="buttonContainer">
+          <button disabled={contador === 1} onClick={decrementar}>
+            Decrementar
+          </button>
+          <button onClick={incrementar}>Incrementar</button>
+        </div>
 
-      <img src={character && character.image} alt="" />
-    </>
+        {personaje && <img src={personaje.image} alt={personaje.name} />}
+      </main>
+    </div>
   );
 }
 
