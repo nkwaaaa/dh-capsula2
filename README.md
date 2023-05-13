@@ -49,4 +49,3 @@ En esta actividad, trabajaremos con los conceptos de custom Hooks utilizando la 
 ## Atribuciones
 
 - [API de Rick and Morty](https://rickandmortyapi.com/): API utilizada para obtener los datos de los personajes.
-- Autores: Jesica Muñoz, Majo Villarreal, Marina Blanco, FabianCol, Nicolas Romero Perez
